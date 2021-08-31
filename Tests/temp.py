@@ -1,9 +1,11 @@
-import plaidml.keras
+import PyPDF2
 
-plaidml.keras.install_backend()
+pdfobject = open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/27.pdf','rb')
 
-# Help MacOS be able to use Keras
-import os
-os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
-# Gets rid of the processor warning.
-os.environ['KMP_DUPLICATE_LIB_OK']='True'
+pdfreader = PyPDF2.PdfFileReader(pdfobject)
+pdfreader.read()
+print(pdfreader)
+
+dictionary = pdfreader.getFormTextFields()
+
+print(dictionary)
