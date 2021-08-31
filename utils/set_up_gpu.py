@@ -1,3 +1,6 @@
+# With Keras
+# https://medium.com/@chris_birch/using-the-gpu-on-a-2018-macbook-pro-for-machine-learning-dc0735f500b1
+
 import plaidml.keras
 import os
 
