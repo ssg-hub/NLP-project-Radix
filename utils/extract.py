@@ -33,7 +33,7 @@ def pdf_to_text(pdf_name : str) ->  str:
         full_text = full_text + ' ' + text
     return full_text
 
-pdf = '/home/becode/Documents/Projects/9.RadixNLP/curriculum_vitae_data-master/pdf/3260.pdf'
+pdf = '/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/27.pdf'
 
 
 #create the nlp object
