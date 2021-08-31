@@ -3417,3 +3417,12 @@ pdf/999.pdf
 dev_pau_NLP.code-workspace
 NLP/bin/pytesseract
 NLP/bin/f2py3
+*.9
+NLP/bin/tqdm
+NLP/bin/wheel
+*.py
+NLP/bin/f2py
+NLP/bin/normalizer
+NLP/bin/pathy
+NLP/bin/spacy
+pdf/.DS_Store
