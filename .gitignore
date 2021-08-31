@@ -3415,3 +3415,5 @@ pdf/997.pdf
 pdf/998.pdf
 pdf/999.pdf
 dev_pau_NLP.code-workspace
+NLP/bin/pytesseract
+NLP/bin/f2py3
