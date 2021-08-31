@@ -11,3 +11,6 @@ os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
 # Gets rid of the processor warning.
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
+
+# Load BERT model:
+# https://github.com/plaidml/plaidml/issues/611
