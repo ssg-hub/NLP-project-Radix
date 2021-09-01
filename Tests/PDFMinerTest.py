@@ -9,6 +9,7 @@ from pdfminer.layout import LAParams
 from pdfminer.converter import PDFPageAggregator
 import pdfminer
 
+# https://stackoverflow.com/questions/22898145/how-to-extract-text-and-text-coordinates-from-a-pdf-file
 # Open a PDF file.
 fp = open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/119.pdf', 'rb')
 
