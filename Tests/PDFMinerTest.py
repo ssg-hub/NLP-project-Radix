@@ -8,10 +8,11 @@ from pdfminer.pdfdevice import PDFDevice
 from pdfminer.layout import LAParams
 from pdfminer.converter import PDFPageAggregator
 import pdfminer
+import re
 
 # https://stackoverflow.com/questions/22898145/how-to-extract-text-and-text-coordinates-from-a-pdf-file
 # Open a PDF file.
-fp = open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/119.pdf', 'rb')
+fp = open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/39.pdf', 'rb')
 
 # Create a PDF parser object associated with the file object.
 parser = PDFParser(fp)
@@ -45,13 +46,19 @@ def parse_obj(lt_objs):
     # loop over the object list
     for obj in lt_objs:
 
-        # if it's a textbox, print text and location
+        # if it's a textbox, print text (and location)
         if isinstance(obj, pdfminer.layout.LTTextBoxHorizontal):
-            print (obj.bbox[0], obj.bbox[1], obj.get_text().replace('\n', '_'))
+            print (obj.get_text().replace('\n', '_'))
+            # obj.bbox[0], obj.bbox[1], 
 
         # if it's a container, recurse
         elif isinstance(obj, pdfminer.layout.LTFigure):
             parse_obj(obj._objs)
+
+        # phone = re.compile(r"^\+\d{2}")
+        # for x in lt_objs:
+        #     match = re.findall(phone, x)
+        #     print(match)
 
 # loop over all pages in the document
 for page in PDFPage.create_pages(document):
@@ -62,3 +69,4 @@ for page in PDFPage.create_pages(document):
 
     # extract text from this object
     parse_obj(layout._objs)
+
