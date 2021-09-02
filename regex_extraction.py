@@ -2,7 +2,7 @@ import re
 
 
 # using regex to extract phone
-phone_regex = re.compile(r'[\+\(]*[1-9][0-9 .\-\(\)]{8,}[0-9]')
+phone_regex = re.compile(r'[\+\(]*[1-9][0-9.\-\(\)]{8,}[0-9]')
 
 # function 
 def extract_phone_number(cv_text):

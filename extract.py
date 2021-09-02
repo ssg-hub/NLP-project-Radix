@@ -9,9 +9,12 @@ from spacy import displacy
 import re
 from regex_extraction import extract_phone_number
 from regex_extraction import extract_email_address
+from eduction_extraction import extract_education
 from nltk.corpus import stopwords
 from nltk import WordNetLemmatizer
 import string
+from ne_parser import preprocess, named_entities
+
 
 '''# using PyPDF2
 pdf1File = open('NLP-project-Radix/sample-the-seeker-resume.pdf', 'rb')
@@ -42,7 +45,7 @@ def pdf_to_text(pdf_name : str) ->  str:
     return doc, full_text
 
 #pdf name 
-pdf = '/home/becode/Documents/Projects/9.RadixNLP/curriculum_vitae_data-master/pdf/3264.pdf'
+pdf = '/home/becode/Documents/Projects/9.RadixNLP/curriculum_vitae_data-master/pdf/426.pdf'
 
 #create the nlp object
 nlp = spacy.load('en_core_web_lg')
@@ -198,3 +201,20 @@ ann= make_text(mywords)
 first_annots.append(ann)
 # not my code - end'''
 ########################################
+a = preprocess(text)
+#print(a)
+#b = named_entities(a)
+
+
+nnp_list = []
+for token, tag in a:
+    if tag == "NNP":
+        nnp_list.append(token)
+
+#print(nnp_list)
+
+tags_for_name = nnp_list[:10] #will def have name , will use later
+
+
+c = extract_education(a)
+print(c)
