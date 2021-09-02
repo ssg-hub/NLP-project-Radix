@@ -139,4 +139,3 @@ cython_debug/
 
 # Example pdfs
 assets/pdf*
-Tests*
