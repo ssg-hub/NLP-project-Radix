@@ -1,2 +1,11 @@
-from utils.extract import pdf_to_text, text_to_df
+from Tests.name_API import To_Json, APIReq
 
+givenName = "Curriculum"
+surName = "Vitae"
+
+try:
+    rqst = To_Json(givenName, surName)
+    name = APIReq(rqst)
+    print(name)
+except:
+    pass
