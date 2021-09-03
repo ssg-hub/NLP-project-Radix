@@ -29,7 +29,7 @@ def To_Json(givenname: str, surname: str):
     }
     return payload
 
-rqst = To_Json(givenname = "John", surname = "Doe")
+rqst = To_Json(givenname = "Lyes", surname = "Rouabah")
 
 # Proceed, only if no error:
 try:
@@ -52,7 +52,8 @@ except requests.exceptions.RequestException as e:
 # Check the confidence scores
 step = resp_dict["matches"]
 values = [i["confidence"] for i in step if "confidence" in i]
+print(values)
 # Print name if confidence score for at least one part of name > 0.5
-if values[0 | 1] > 0.5:
+if values[0] or values[1] > 0.5:
     step2 = step[0]
     print(step2["parsedPerson"]["addressingGivenName"], step2["parsedPerson"]["addressingSurname"])
