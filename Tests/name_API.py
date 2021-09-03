@@ -48,4 +48,4 @@ def APIReq(rqst: dict):
     # Print name if confidence score for at least one part of name > 0.5
     if values[0] or values[1] > 0.5:
         step2 = step[0]
-        return step2["parsedPerson"]["addressingGivenName"], step2["parsedPerson"]["addressingSurname"]
+        return step2["parsedPerson"]["addressingGivenName"] + " " + step2["parsedPerson"]["addressingSurname"]
