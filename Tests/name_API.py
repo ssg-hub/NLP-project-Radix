@@ -1,5 +1,4 @@
 import requests
-from requests.exceptions import HTTPError
 
 # source: https://juliensalinas.com/en/REST_API_fetching_go_golang_vs_python/
 url = (
