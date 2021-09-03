@@ -12,7 +12,7 @@ import re
 
 # https://stackoverflow.com/questions/22898145/how-to-extract-text-and-text-coordinates-from-a-pdf-file
 # Open a PDF file.
-fp = open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/39.pdf', 'rb')
+fp = open('/home/becode/Documents/GitHub/NLP-project-Radix/assets/pdfs/39.pdf', 'rb')
 
 # Create a PDF parser object associated with the file object.
 parser = PDFParser(fp)
@@ -55,10 +55,10 @@ def parse_obj(lt_objs):
         elif isinstance(obj, pdfminer.layout.LTFigure):
             parse_obj(obj._objs)
 
-        # phone = re.compile(r"^\+\d{2}")
-        # for x in lt_objs:
-        #     match = re.findall(phone, x)
-        #     print(match)
+        phone = re.compile(r"^\+\d{2}")
+        for x in lt_objs:
+            match = re.findall(phone, x)
+            print(match)
 
 # loop over all pages in the document
 for page in PDFPage.create_pages(document):

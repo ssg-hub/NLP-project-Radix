@@ -1,4 +1,6 @@
+from os import access
 import requests
+import pandas as pd
 
 
 # source: https://juliensalinas.com/en/REST_API_fetching_go_golang_vs_python/
@@ -7,6 +9,8 @@ url = (
     "apiKey=4c812bf642f08aac955574296fd2d2d6-user1"
 )
 
+
+
 # Dict of data to be sent to NameAPI.org:
 payload = {
     "inputPerson": {
@@ -14,7 +18,7 @@ payload = {
         "personName": {
             "nameFields": [
                 {
-                    "string": "Pauwel",
+                    "string": "Walter",
                     "fieldType": "GIVENNAME"
                 }, {
                     "string": "De Wilde",
@@ -39,6 +43,13 @@ try:
     # Decode JSON response into a Python dict:
     resp_dict = resp.json()
     print(resp_dict)
+    df = pd.DataFrame.from_dict(resp_dict)
+    print("##################################")
+    print(df)
+    step = resp_dict["parsedPerson"]["personType"]
+    print("#################################")
+    print(step)
+
 except requests.exceptions.HTTPError as e:
     print("Bad HTTP status code:", e)
 except requests.exceptions.RequestException as e:
