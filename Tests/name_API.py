@@ -1,5 +1,4 @@
 import requests
-import jsonpickle
 
 
 # source: https://juliensalinas.com/en/REST_API_fetching_go_golang_vs_python/
@@ -28,11 +27,9 @@ def To_Json(givenname: str, surname: str):
             "gender": "UNKNOWN"
         }
     }
-    print(type(payload))
     return payload
 
-rqst = jsonpickle.encode(To_Json(givenname = "John", surname = "Doe"))
-print(rqst)
+rqst = To_Json(givenname = "John", surname = "Doe")
 
 # Proceed, only if no error:
 try:
@@ -46,15 +43,16 @@ try:
     resp.raise_for_status()
     # Decode JSON response into a Python dict:
     resp_dict = resp.json()
-    print(resp_dict)
-    # Select the confidence scores
-    step = resp_dict["matches"]
-    values = [i["confidence"] for i in step if "confidence" in i]
-    print(values)
 
 except requests.exceptions.HTTPError as e:
     print("Bad HTTP status code:", e)
 except requests.exceptions.RequestException as e:
     print("Network error:", e)
 
-    
+# Check the confidence scores
+step = resp_dict["matches"]
+values = [i["confidence"] for i in step if "confidence" in i]
+# Print name if confidence score for at least one part of name > 0.5
+if values[0 | 1] > 0.5:
+    step2 = step[0]
+    print(step2["parsedPerson"]["addressingGivenName"], step2["parsedPerson"]["addressingSurname"])
