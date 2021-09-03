@@ -1,6 +1,5 @@
-from os import access
 import requests
-import pandas as pd
+import jsonpickle
 
 
 # source: https://juliensalinas.com/en/REST_API_fetching_go_golang_vs_python/
@@ -10,25 +9,30 @@ url = (
 )
 
 
-
 # Dict of data to be sent to NameAPI.org:
-payload = {
-    "inputPerson": {
-        "type": "NaturalInputPerson",
-        "personName": {
-            "nameFields": [
-                {
-                    "string": "Walter",
-                    "fieldType": "GIVENNAME"
-                }, {
-                    "string": "De Wilde",
-                    "fieldType": "SURNAME"
-                }
-            ]
-        },
-        "gender": "UNKNOWN"
+def To_Json(givenname: str, surname: str):
+    payload = {
+        "inputPerson": {
+            "type": "NaturalInputPerson",
+            "personName": {
+                "nameFields": [
+                    {
+                        "string": givenname,
+                        "fieldType": "GIVENNAME"
+                    }, {
+                        "string": surname,
+                        "fieldType": "SURNAME"
+                    }
+                ]
+            },
+            "gender": "UNKNOWN"
+        }
     }
-}
+    print(type(payload))
+    return payload
+
+rqst = jsonpickle.encode(To_Json(givenname = "John", surname = "Doe"))
+print(rqst)
 
 # Proceed, only if no error:
 try:
@@ -38,19 +42,19 @@ try:
     # - pass the JSON to request body
     # - set header's 'Content-Type' to 'application/json' instead of
     #   default 'multipart/form-data'
-    resp = requests.post(url, json=payload)
+    resp = requests.post(url, json = rqst)
     resp.raise_for_status()
     # Decode JSON response into a Python dict:
     resp_dict = resp.json()
     print(resp_dict)
-    df = pd.DataFrame.from_dict(resp_dict)
-    print("##################################")
-    print(df)
-    step = resp_dict["parsedPerson"]["personType"]
-    print("#################################")
-    print(step)
+    # Select the confidence scores
+    step = resp_dict["matches"]
+    values = [i["confidence"] for i in step if "confidence" in i]
+    print(values)
 
 except requests.exceptions.HTTPError as e:
     print("Bad HTTP status code:", e)
 except requests.exceptions.RequestException as e:
     print("Network error:", e)
+
+    
