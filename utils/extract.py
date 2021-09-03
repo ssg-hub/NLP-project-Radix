@@ -1,26 +1,7 @@
-from numpy import concatenate
 import pandas as pd
 import fitz
-import PyPDF2
 import spacy
-from spacy.lang.en import English
-
-'''# using PyPDF2
-pdf1File = open('NLP-project-Radix/sample-the-seeker-resume.pdf', 'rb')
-pdf1Reader = PyPDF2.PdfFileReader(pdf1File)
-print(pdf1Reader.numPages)
-pageObj = pdf1Reader.getPage(0)
-print(pageObj.extractText())'''
-
-# using PyMuPDF and fitz
-
-'''doc = fitz.open(pdf)
-for page in doc:
-    text = page.getText("text")
-    # html_text = page.getText("html")
-    # print(text)
-    # print(html_text)'''
-
+import en_core_web_sm
 
 def pdf_to_text(pdf_name : str) ->  str:
     """
@@ -33,12 +14,10 @@ def pdf_to_text(pdf_name : str) ->  str:
         full_text = full_text + ' ' + text
     return full_text
 
-pdf = '/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/27.pdf'
-
+pdf = '/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/156.pdf'
 
 #create the nlp object
-nlp = spacy.load('en_core_web_sm')
-
+nlp = en_core_web_sm.load()
 
 #print(doc)
 print('check 2')
@@ -64,11 +43,10 @@ def text_to_df( text : str) -> pd.DataFrame :
 text = pdf_to_text(pdf)
 data = text_to_df(text)
 
-print(data.head())
+print(data.head(20))
 
 # grouping by token_label
 label_groups = data.groupby('token_label')
-
 
 # Let's print the first entries in all the groups formed.
 label_groups_first = label_groups.first()
