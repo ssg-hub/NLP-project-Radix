@@ -12,30 +12,31 @@ def extract_education(tokens_with_pos):
     Function to get the education of person out of given text
     """
     education_words = [
-    'school',
-    'university',
+    #'school',
+    #'university',
     'certificate',
-    'study',
+    #'study',
     'diploma',
-    'hsc',
-    'ssc',
-    'college',
-    'higher',
-    'institute',
-    'studies',
-    'education',
-    'high',
-    'master',
-    'bachelor',
-    'academy',
-    'polytechnic',
-    'degree',
+    #'hsc',
+    #'ssc',
+    #'college',
+    #'higher',
+    #'institute',
+    #'studies',
+    #'education',
+   # 'high',
+   # 'master',
+    #'bachelor',
+    #'academy',
+    #'polytechnic',
+    #'degree',
     'masters',
     'bachelors',
-    'phd',
+    'p.h.d',
     'b.e',
-    'be',
-    'b.e.'  
+    'b.e.',
+    'm.e.'
+    'engineering'
     ]
 
     edu_institutes = []

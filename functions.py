@@ -1,5 +1,18 @@
 import nltk
+import fitz
 nltk.download('maxent_ne_chunker')
+
+# convert all pages of pdf to text
+def pdf_to_text(pdf_name : str) ->  str:
+    """
+    Function to get all the pages of given pdf in text format.
+    """
+    doc = fitz.open(pdf_name)
+    full_text = ''
+    for page in doc:
+        text = page.getText("text")
+        full_text = full_text + ' ' + text
+    return doc, full_text
 
 def preprocess(text : str ):
     """

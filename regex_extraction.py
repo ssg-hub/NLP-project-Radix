@@ -57,4 +57,16 @@ def extract_email_address(cv_text : str):
     # return none if no numbers found as per regex rule
     return None
 
-    
+def extract_email_address_2(doc):
+    """
+    Function to retrive emails using inbuilt function from spacy
+    """
+    email_list = []
+
+    for token in doc:
+        if token.like_email == True: 
+            email_list.append(token)
+    x = list(set(email_list))
+
+    return x
+    #not working
