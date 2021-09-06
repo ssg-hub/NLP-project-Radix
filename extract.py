@@ -1,4 +1,6 @@
+from fitz.utils import Shape
 from numpy import concatenate
+from tabulate import tabulate
 import pandas as pd
 import fitz
 import nltk
@@ -6,14 +8,15 @@ import PyPDF2
 import spacy
 from spacy.lang.en import English
 from spacy import displacy
-import re
-from regex_extraction import extract_phone_number
-from regex_extraction import extract_email_address, extract_email_address_2
+from phone_email_extraction import extract_phone_number, extract_dob
+from phone_email_extraction import extract_email_address, extract_email_address_2
 from eduction_extraction import extract_education
 from nltk.corpus import stopwords
 from nltk import WordNetLemmatizer
 import string
 from functions import preprocess, named_entities, pdf_to_text
+import re
+pd.set_option('display.max_columns',10)
 
 
 '''# using PyPDF2
@@ -33,7 +36,7 @@ for page in doc:
     # print(html_text)'''
 
 #pdf name 
-pdf = '/home/becode/Documents/Projects/9.RadixNLP/curriculum_vitae_data-master/pdf/526.pdf'
+pdf = '/home/becode/Documents/Projects/9.RadixNLP/curriculum_vitae_data-master/pdf/2526.pdf'
 
 #create the nlp object
 nlp = spacy.load('en_core_web_lg')
@@ -66,7 +69,7 @@ print('check 2')
 
 # grouping by token_label
 label_groups = data.groupby('token_label')
-print(label_groups.head())
+#print(label_groups.head())
 
 # Let's print the first entries in all the groups formed.
 label_groups_first = label_groups.first()
@@ -76,9 +79,10 @@ label_groups_first = label_groups.first()
 labels_list = list(label_groups_first.index.values)
 
 # to check how many times an entity group is found in the text
-for item in labels_list:
+#unuseful results yielded
+#for item in labels_list:
     # Finding the values contained in the token group
-    print(item, len(label_groups.get_group(item)))
+    #print(item, len(label_groups.get_group(item)))
 
 # load text using nlp
 doc = nlp(text)
@@ -87,9 +91,9 @@ doc = nlp(text)
 #displacy.serve(doc, style = 'ent')
 ####################################################################
 #trying to see if languages are marked corrctly
-ds = data.loc[data['token_label'] == 'LANGUAGE'].groupby('token_label')
-print(ds.head())
-#they are not, by observation
+ds = data.loc[data['token_label'] == 'DATE'].groupby('token_label')
+#not getting all languages, DOB etc
+#they are not, by observation, bad results yielded
 
 
 '''for token in doc:
@@ -115,19 +119,22 @@ text_cleaned_joined = ' '.join(text_cleaned)
 
 #breaking text into sentences
 lines = [each.strip() for each in text.split("\n") if len(each) > 0] 
+# remove punctuation
+#lines_punctuationless = [each for each in lines if each not in string.punctuation] 
+
 #tokenizing each sentence
-lines_tokenized = [nltk.word_tokenize(each) for each in lines]
+lines_tokenized = [nltk.word_tokenize(each) for each in lines  ]
+
 #adding part of speech for each token
 lines_pos_tagged = [nltk.pos_tag(each) for each in lines_tokenized]
-
+#for each in lines_pos_tagged:
+  # print(each)
 #function to remove stop words and punctuation from above
-def remove_noise(tokens, stop_words = ()):
+def remove_noise(each_line, stop_words = ()):
 
-    cleaned_lines = []
-
-
+    cleaned_line = []
      
-    for token, tag in nltk.pos_tag(tokens):
+    for token, tag in nltk.pos_tag(each_line):
 
 
         if tag.startswith("NN"):
@@ -141,33 +148,113 @@ def remove_noise(tokens, stop_words = ()):
         token = lemmatizer.lemmatize(token, pos)
         
         if len(token) > 0 and token not in string.punctuation \
-                        and token.lower() not in stop_words:
-            cleaned_lines.append(token)
+             and token.lower() not in stop_words and token != '\uf0b7':
+            cleaned_line.append(token.lower())
             
-    return cleaned_lines
+    return cleaned_line
 
+lines_without_noise = []
 
-print(remove_noise(lines_pos_tagged, stop_words))
+#print(remove_noise(lines_pos_tagged, stop_words))
+for i,each in enumerate(lines_tokenized):   
+    x = remove_noise(each, stop_words)
+    if len(x) > 0 : lines_without_noise.append(x)
 
+ #print(len(lines_without_noise), len(lines_pos_tagged))
+
+for i,x in enumerate(lines_without_noise):
+
+    if 'languages' in x or 'languages' in x:
+        lang = (remove_noise(lines_without_noise[i+1], stop_words))
+        # in some cases it would written in same line, then:
+        # (remove_noise(lines_tokenized[i], stop_words))
+        print ('Languages:', "\n", lang, '\n')
+
+    if 'dob' in x or 'birth' in x:
+        print("Date of Birth:")
+        dob = (remove_noise(lines_without_noise[i], stop_words))
+        dob = extract_dob(dob)
+        if len(dob) != 0: 
+            print(dob)    
+        else:
+            dob = (remove_noise(lines_without_noise[i+1], stop_words))
+            dob = extract_dob(dob)
+            print(dob)
+            
+    if 'experience' in x or 'past' in x:
+        print("Experience:")
+        #print(remove_noise(x, stop_words))
+        print(remove_noise(lines_without_noise[i+1], stop_words), '\n')
+        
+
+    if 'address' in x:
+        print("Address:")
+        #print(remove_noise(x, stop_words))
+        print(' '.join(remove_noise(lines_without_noise[i+1], stop_words)))
+        print(' '.join(remove_noise(lines_without_noise[i+2], stop_words)))
+        print(' '.join(remove_noise(lines_without_noise[i+3], stop_words)), "\n")
+
+    hobby_list = ['hobby','hobbies','interests', 'extra-curricular',
+                    'extracurriculum','extracurricular', 'extra- ',
+                    'extra', 'sports','curricular','activities']
+    hl = list(set(hobby_list).intersection(x))
+    #if set(x) in hobby_list
+    if len(hl) != 0:
+        print(hl[0],":")            
+        #print(hl, i, i+1)
+        #print(remove_noise(x, stop_words))
+        print(remove_noise(lines_without_noise[i+1], stop_words))
+
+    edu_list = ['education','qualification','qualifications','certification',
+                'certifications']
+    el = list(set(edu_list).intersection(x))
+    if len(el) != 0:
+        print(el[0],":")
+        j = 1
+        while j < 7:
+            print(remove_noise(lines_without_noise[i+j], stop_words) )
+            j += 1
+        
 
 print('check 4')
-# print extracted phone number and email addresses
-print(extract_phone_number(text))
-print(extract_email_address(text))
-
-
+'''for each in lines_without_noise:
+    print(each)
+print('check 5')
+'''
+###################################################################
 # trying to build bounding box i.e. annot
 # pages is the resulting text when we open pdf using fitz/PyMuPDF
 page1 = pages[0]
 words = page1.get_text("words") # words on only page1
 
-'''# getting the bounding boxes for page1
+# getting the bounding boxes for page1
 first_annots=[] #empty list to store results
 
-rec=page1.first_annot.rect
+rec=words#.first_annot.rect
 print(rec)
-print('check 5')
+# create DataFrame using data
+df_rec = pd.DataFrame(rec, columns =['A','B','C','D', 'Word', 'BlockNo','LineNo','WordNo'])
+df_rec_groupby_block = df_rec.groupby('BlockNo')
+  
+for x in df_rec_groupby_block.groups:
+    print('Block '+ str(x))
+    print(df_rec_groupby_block.get_group(x))
+print('check 6')
 
+# draw polyline
+# create a Shape to draw on
+# get list of text locations
+t = 'Gender'
+doc, text = pdf_to_text(pdf)
+# we use "quads", not rectangles because text may be tilted!
+rl = page1.search_for(t, quads = True)
+# mark all found quads with one annotation
+page1.add_highlight_annot(rl)
+# save to a new PDF
+doc.save("a-squiggly.pdf")
+#shape = page.new_shape()
+#Shape.draw_quad(108.099998 , 324.977936 , 114.685936 , 339.524811)
+'''
 #Information of words in first object is stored in mywords
 mywords = [w for w in words if fitz.Rect(w[:4]) in rec]
 
@@ -195,23 +282,4 @@ ann= make_text(mywords)
 first_annots.append(ann)
 # not my code - end'''
 ########################################
-a = preprocess(text)
-#print(a)
-#b = named_entities(a)
 
-
-nnp_list = []
-for token, tag in a:
-    if tag == "NNP":
-        nnp_list.append(token)
-
-#print(nnp_list)
-
-tags_for_name = nnp_list[:10] #will def have name , will use later
-
-
-c = extract_education(a)
-print(c)
-
-d = extract_email_address_2(doc)
-print(d)

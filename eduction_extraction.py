@@ -7,6 +7,7 @@ nltk.download('maxent_ne_chunker')
 
 
 
+
 def extract_education(tokens_with_pos):
     """
     Function to get the education of person out of given text
