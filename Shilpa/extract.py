@@ -276,3 +276,17 @@ def make_text(words):
 ann= make_text(mywords)
 first_annots.append(ann)
 # not my code - end'''
+
+page1 = pages[0]
+blocks = page1.get_text("blocks") # blcoks on only page1 
+#or lines = page1.get_text.extractBLOCKS()
+
+# create DataFrame using data
+df_blocks = pd.DataFrame(blocks, columns =['A','B','C','D', 'Word', 'BlockNo','AnotherNo'])
+df_blocks_groupby_block = df_blocks.groupby('BlockNo')
+  
+for x in df_blocks_groupby_block.groups:
+    print('Block '+ str(x))
+    print(df_blocks_groupby_block.get_group(x))
+print('check 7')
+

@@ -10,7 +10,7 @@ from pdfminer.pdfparser import PDFParser
 
 # def get_string():
 output_string = StringIO()
-with open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/1845.pdf', 'rb') as in_file:
+with open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/214.pdf', 'rb') as in_file:
     parser = PDFParser(in_file)
     doc = PDFDocument(parser)
     rsrcmgr = PDFResourceManager()
@@ -22,6 +22,10 @@ with open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/1845.pdf', 
 text = output_string.getvalue()
 print(text)
 
-# phone = re.compile(r"^\+?\d+$")
-match = re.findall(r"(\+?\d{2} .\d+ | )", text)
-print(match)
+# match = re.findall(r"(\+?\d{2} .\d+ | )", text)
+# print(match)
+
+schooling = re.findall("education")
+if schooling in text:
+    education = text.split(schooling)
+    print(education)

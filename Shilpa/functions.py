@@ -1,6 +1,5 @@
 import nltk
 import fitz
-nltk.download('maxent_ne_chunker')
 
 # convert all pages of pdf to text
 def pdf_to_text(pdf_name : str) ->  str:
