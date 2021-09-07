@@ -14,7 +14,7 @@ from eduction_extraction import extract_education
 from nltk.corpus import stopwords
 from nltk import WordNetLemmatizer
 import string
-from functions import preprocess, named_entities, pdf_to_text
+from functions import preprocess, named_entities, pdf_to_text, mark_word
 import re
 pd.set_option('display.max_columns',10)
 
@@ -36,7 +36,7 @@ for page in doc:
     # print(html_text)'''
 
 #pdf name 
-pdf = '/home/becode/Documents/Projects/9.RadixNLP/curriculum_vitae_data-master/pdf/2526.pdf'
+pdf = '/home/becode/Documents/Projects/9.RadixNLP/curriculum_vitae_data-master/pdf/1526.pdf'
 
 #create the nlp object
 nlp = spacy.load('en_core_web_lg')
@@ -217,10 +217,10 @@ for i,x in enumerate(lines_without_noise):
         
 
 print('check 4')
-'''for each in lines_without_noise:
+for each in lines_without_noise:
     print(each)
 print('check 5')
-'''
+
 ###################################################################
 # trying to build bounding box i.e. annot
 # pages is the resulting text when we open pdf using fitz/PyMuPDF
@@ -228,32 +228,35 @@ page1 = pages[0]
 words = page1.get_text("words") # words on only page1
 
 # getting the bounding boxes for page1
-first_annots=[] #empty list to store results
+#first_annots=[] #empty list to store results
 
-rec=words#.first_annot.rect
-print(rec)
+#rec=words#.first_annot.rect
+#print(rec)
 # create DataFrame using data
-df_rec = pd.DataFrame(rec, columns =['A','B','C','D', 'Word', 'BlockNo','LineNo','WordNo'])
-df_rec_groupby_block = df_rec.groupby('BlockNo')
+df_words = pd.DataFrame(words, columns =['A','B','C','D', 'Word', 'BlockNo','LineNo','WordNo'])
+df_words_groupby_block = df_words.groupby('BlockNo')
   
-for x in df_rec_groupby_block.groups:
+for x in df_words_groupby_block.groups:
     print('Block '+ str(x))
-    print(df_rec_groupby_block.get_group(x))
+    print(df_words_groupby_block.get_group(x))
 print('check 6')
 
 # draw polyline
 # create a Shape to draw on
 # get list of text locations
-t = 'Gender'
+t = 'Education:'
 doc, text = pdf_to_text(pdf)
 # we use "quads", not rectangles because text may be tilted!
 rl = page1.search_for(t, quads = True)
 # mark all found quads with one annotation
 page1.add_highlight_annot(rl)
 # save to a new PDF
+doc.save("quiggly.pdf")
+
+mark_word(page1, t)
 doc.save("a-squiggly.pdf")
-#shape = page.new_shape()
-#Shape.draw_quad(108.099998 , 324.977936 , 114.685936 , 339.524811)
+#shape = page1.new_shape()
+#shape.draw_quad(108.099998 , 324.977936 , 114.685936 , 339.524811)
 '''
 #Information of words in first object is stored in mywords
 mywords = [w for w in words if fitz.Rect(w[:4]) in rec]
@@ -282,4 +285,26 @@ ann= make_text(mywords)
 first_annots.append(ann)
 # not my code - end'''
 ########################################
+page1 = pages[0]
+blocks = page1.get_text("blocks") # blcoks on only page1 
+#or lines = page1.get_text.extractBLOCKS()
 
+# create DataFrame using data
+df_blocks = pd.DataFrame(blocks, columns =['A','B','C','D', 'Word', 'BlockNo','BlockType'])
+df_blocks_groupby_block = df_blocks.groupby('BlockNo')
+  
+for x in df_blocks_groupby_block.groups:
+    print('Block '+ str(x))
+    print(df_blocks_groupby_block.get_group(x))
+print('check 7')
+
+###########################
+shape = page1.new_shape()
+#shape.draw_quad((108.099998 , 324.977936)(114.685936 , 339.524811))
+#quad = fitz.Quad( 209.100006,  439.669434  ,584.948486 , 743.95105)
+#
+areas = page1.searchFor("@", hit_max = 3)
+shape.draw_rect(areas)
+doc.save("a-squiggly.pdf")
+print(areas)
+print('check 8')

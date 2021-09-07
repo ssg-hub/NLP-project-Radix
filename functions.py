@@ -10,7 +10,7 @@ def pdf_to_text(pdf_name : str) ->  str:
     doc = fitz.open(pdf_name)
     full_text = ''
     for page in doc:
-        text = page.getText("text")
+        text = page.getText("text")#.encode("utf8") 
         full_text = full_text + ' ' + text
     return doc, full_text
 
@@ -32,3 +32,18 @@ def named_entities(tagged):
             namedEnt.draw()
     except Exception as e:
         print(str(e))
+
+def mark_word(page, text):
+    """
+    Underline each word that contains 'text'.
+    """
+    
+    wlist = page.getText("words")  # make the word list
+    for w in wlist:  # scan through all words on page
+        if text in w[4]:  # w[4] is the word's string
+            
+            r = fitz.Rect(w[:4])  # make rect from word bbox
+            highlight = page.addHighlightAnnot(r)
+            highlight.setColors({"stroke":(0, 0, 1), "fill":(0.75, 0.8, 0.95)})
+            highlight.update()  # underline
+    return 
