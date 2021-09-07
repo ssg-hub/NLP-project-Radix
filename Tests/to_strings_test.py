@@ -10,7 +10,7 @@ from pdfminer.pdfparser import PDFParser
 
 # def get_string():
 output_string = StringIO()
-with open('/home/becode/Documents/GitHub/NLP-project-Radix/assets/pdfs/964.pdf', 'rb') as in_file:
+with open('/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/1845.pdf', 'rb') as in_file:
     parser = PDFParser(in_file)
     doc = PDFDocument(parser)
     rsrcmgr = PDFResourceManager()

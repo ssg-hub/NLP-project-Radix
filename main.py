@@ -2,8 +2,8 @@ from Tests.name_API import To_Json, APIReq
 
 
 
-givenName = "BERT"
-surName = "Herreweghe"
+givenName = "Harold"
+surName = "Zuluaga duque"
 
 try:
     rqst = To_Json(givenName, surName)
