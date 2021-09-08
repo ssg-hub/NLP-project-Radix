@@ -84,3 +84,9 @@ def extract_dob(a_list):
     for item in a_list: 
         matches = re.findall(pattern, item)
     return matches
+
+def remove_utfs(a_list):
+    """
+    Function to remove bullet points etc.
+    """
+    pattern = r''
