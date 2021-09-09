@@ -68,8 +68,8 @@ def get_name(pdf):
         givenName = pair[0]
         surName = pair[1]
 
-        if givenName.lower() not in ["curriculum", "vitae"]:
-            if surName.lower() not in ["curriculum", "vitae"]:
+        if givenName.lower() not in ["curriculum", "vitae", "resume"]:
+            if surName.lower() not in ["curriculum", "vitae", "resume"]:
                 try:
                     rqst = To_Json(givenName, surName)
                     name = APIReq(rqst)
