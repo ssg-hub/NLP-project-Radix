@@ -10,7 +10,7 @@ nlp = en_core_web_sm.load()
 import nltk
 
 
-from pyresparser import ResumeParser
+from pyresparser import ResumeParser #pyreparser is a library
 
 def extract_skills(pdf):
     """
@@ -19,6 +19,7 @@ def extract_skills(pdf):
     skills = []
     everything = ResumeParser(pdf).get_extracted_data()
     skills = everything['skills']
+    skills = ' '.join(skills)
     return skills
     
 

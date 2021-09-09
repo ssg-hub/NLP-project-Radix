@@ -5,7 +5,7 @@ import re
 import string
 from nltk import WordNetLemmatizer
 from nltk.corpus import stopwords
-nltk.download('maxent_ne_chunker')
+#nltk.download('maxent_ne_chunker')
 from phone_email_extraction import extract_dob
 import itertools
 
@@ -203,6 +203,7 @@ def extract_few(lines_without_noise):
         
     
     lang = list(itertools.chain(*lang))
+    lang = ' '.join(lang)
     hobbies = list(itertools.chain(*hobbies))
     dob = list(itertools.chain(*dob))
     return  lang, dob, experience, address, education, hobbies

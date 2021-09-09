@@ -36,7 +36,7 @@ for i in range(1,21):
     #print(lines_noiseless)
 
     lang, dob, experience, address, education, hobbies =  extract_few(lines_noiseless)           
-    print(lang, dob, experience, address, education, hobbies)
+    #print(lang, dob, experience, address, education, hobbies)
     # populating names of pdf
     df.at[i-1, 'Pdf']  = pdf 
 
@@ -73,7 +73,10 @@ for i in range(1,21):
     # populating designation
     df.at[i-1, 'Previous_Job_Title']  = extract_designation(pdf)
 
-print(df.head())
+    # populating names
+    #df.at[i-1, 'Name'] = get_names(pdf)
+
+#print(df.head())
 
     
 
