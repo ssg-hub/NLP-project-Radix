@@ -6,6 +6,7 @@ import string
 from nltk import WordNetLemmatizer
 from nltk.corpus import stopwords
 nltk.download('maxent_ne_chunker')
+from phone_email_extraction import extract_dob
 
 # convert all pages of pdf to text
 def pdf_to_text(pdf_name : str) ->  str:
@@ -94,7 +95,7 @@ def remove_noise(each_line, stop_words = ()):
             
     return cleaned_line
 
-def lines_without_noise(lines_tokenized : List) -> List:
+def extract_lines_without_noise(lines_tokenized : List) -> List:
     lines_without_noise = []
 
     # let us remove stop words first
@@ -103,7 +104,101 @@ def lines_without_noise(lines_tokenized : List) -> List:
     #print(remove_noise(lines_pos_tagged, stop_words))
     for i,each in enumerate(lines_tokenized):   
         x = remove_noise(each, stop_words)
-        print(x)
+        #print(x)
         if len(x) > 0 : lines_without_noise.append(x)
 
     return lines_without_noise
+
+
+def extract_few(lines_without_noise):
+
+    stop_words = stopwords.words('english')
+
+    lang = []
+    dob = []
+    experience = []
+    address = []
+    hobbies = []
+    education = []
+
+    for i,x in enumerate(lines_without_noise):
+
+        
+        if 'language' in x or 'languages' in x or 'mlanguages' in x:
+            # in some cases it would written in same line, then:
+            if 'english' in x or 'french' in x:            
+                lang.append(remove_noise(lines_without_noise[i], stop_words))
+            # when languages are written in the next line:
+            else:
+                lang.append(remove_noise(lines_without_noise[i+1], stop_words))
+        #else : lang = 'n/a'
+            #print ('Languages:', "\n", lang, '\n')
+        
+        
+        if 'dob' in x or 'birth' in x:
+            #print("Date of Birth:")
+            somedate = (remove_noise(lines_without_noise[i], stop_words))
+            somedate = extract_dob(somedate)
+            if len(somedate) != 0: 
+                #print(dob) 
+                dob.append(somedate)   
+            else:
+                somedate = (remove_noise(lines_without_noise[i+1], stop_words))
+                somedate = extract_dob(somedate)
+                dob.append(somedate) 
+                #print(dob)
+        
+                
+        if 'experience' in x or 'past' in x:
+            #print("Experience:")
+            #print(remove_noise(x, stop_words))
+            experience.append(remove_noise(lines_without_noise[i+1], stop_words))
+            #print(experience, '\n')
+        
+        #token = re.sub(r'[^\x00-\x7F]+(\s)*', '', token) 
+        #token = re.sub(r'[.*a*d*r*e*s*., '', token)
+        if 'address' in x or 'permanentaddress' in x\
+            or 'localaddress' in x \
+            or 'homeaddress' in x\
+            or 'postaladdress' in x:
+            #print("Address:")
+            #print(remove_noise(x, stop_words))
+            one = (' '.join(remove_noise(lines_without_noise[i+1], stop_words)))
+            '''if len(lines_without_noise) >= i+2:
+                two = (' '.join(remove_noise(lines_without_noise[i+2], stop_words)))
+            else : two = ''
+            if len(lines_without_noise) >= i+3:
+                    three = (' '.join(remove_noise(lines_without_noise[i+3], stop_words)), "\n")
+            else : three = '''''
+            address.append((one))
+            #print(one, "\n", two, "\n", three)
+        
+
+        hobby_list = ['hobby','hobbies','interests', 'extra-curricular',
+                        'extracurriculum','extracurricular', 'extra- ',
+                        'extra', 'sports','curricular','activities']
+        hl = list(set(hobby_list).intersection(x))
+        #if set(x) in hobby_list
+        if len(hl) != 0:
+            #print(hl[0],":")            
+            #print(hl, i, i+1)
+            #print(remove_noise(x, stop_words))
+            hobbies.append(remove_noise(lines_without_noise[i+1]))
+            #print(hobbies)
+        
+            
+
+        edu_list = ['education','qualification','qualifications','certification',
+                    'certifications']
+        
+        el = list(set(edu_list).intersection(x))
+        if len(el) != 0:
+            #print(el[0],":")
+            j = 1
+            while j < 7:
+                place_holder = (remove_noise(lines_without_noise[i+j], stop_words) )
+                education.append(place_holder)
+                j += 1
+        
+    
+    return  lang, dob, experience, address, education, hobbies

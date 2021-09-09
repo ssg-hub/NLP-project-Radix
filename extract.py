@@ -10,12 +10,12 @@ from spacy.lang.en import English
 from spacy import displacy
 from phone_email_extraction import extract_phone_number, extract_dob
 from phone_email_extraction import extract_email_address, extract_email_address_2
-from eduction_extraction import extract_education
+#from eduction_extraction import extract_education
 from nltk.corpus import stopwords
 
 import string
 from functions import preprocess, named_entities, pdf_to_text, mark_word
-from functions import extract_lines_tokenized, remove_noise, lines_without_noise
+from functions import extract_lines_tokenized, remove_noise, extract_lines_without_noise
 import re
 pd.set_option('display.max_columns',10)
 
@@ -121,9 +121,7 @@ text_cleaned_joined = ' '.join(text_cleaned)
 
 lines_tokenized, lines_pos_tagged = extract_lines_tokenized(text)
 
-lines_without_noise = lines_without_noise(lines_tokenized)
-
-
+lines_without_noise = extract_lines_without_noise(lines_tokenized)
  #print(len(lines_without_noise), len(lines_pos_tagged))
 
 for i,x in enumerate(lines_without_noise):
@@ -133,6 +131,7 @@ for i,x in enumerate(lines_without_noise):
         # in some cases it would written in same line, then:
         # (remove_noise(lines_tokenized[i], stop_words))
         print ('Languages:', "\n", lang, '\n')
+    
 
     if 'dob' in x or 'birth' in x:
         print("Date of Birth:")

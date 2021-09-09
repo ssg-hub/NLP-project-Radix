@@ -1,14 +1,13 @@
 import re
 
-
-# using regex to extract phone
-phone_regex = re.compile(r'[\+\(]*[1-9][0-9.\-\(\)]{8,}[0-9]')
-
 # function 
 def extract_phone_number(cv_text):
     """
     Function to use the regex to extract phone number from text
     """
+    # using regex to extract phone
+    phone_regex = re.compile(r'[\+\(]*[1-9][0-9.\-\(\)]{8,}[0-9]')
+
     # matching all using regex
     phones = re.findall(phone_regex, cv_text)
     
@@ -36,14 +35,15 @@ def extract_phone_number(cv_text):
     return None
 
 
-#using regex to extract email address
-email_regex = re.compile(r'[\w._-]+@[\w-]+\.[\w.-]+')
+
 
 #function
 def extract_email_address(cv_text : str):
     """
     Function to extract emails using regex
     """
+    #using regex to extract email address
+    email_regex = re.compile(r'[\w._-]+@[\w-]+\.[\w.-]+')
 
     # matching all using regex
     emails = re.findall(email_regex, cv_text)

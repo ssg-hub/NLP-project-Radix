@@ -4,8 +4,15 @@ nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger')
 nltk.download('words')
 nltk.download('maxent_ne_chunker')
+from pyresparser import ResumeParser
 
-
+def extract_skills(pdf):
+    """
+    Function to get the skills of the person
+    """
+    everything = ResumeParser(pdf).get_extracted_data()
+    skills = everything['skills']
+    return skills
 
 
 def extract_education(tokens_with_pos):
