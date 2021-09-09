@@ -1,3 +1,4 @@
+from pdfminer.pdfpage import PDFPage
 from functions import pdf_to_text
 import os, sys
 import pandas as pd
@@ -5,14 +6,14 @@ from nltk.corpus import stopwords
 from functions import pdf_to_text, extract_lines_tokenized
 from functions import extract_lines_without_noise, extract_few
 from phone_email_extraction import extract_email_address, extract_phone_number
-from skills_extraction import extract_skills
+from skills_extraction import extract_skills, extract_designation
 pd.set_option('display.max_columns',15)
 
 #creating an empty dataframe
 df = pd.DataFrame(columns=['Pdf','Name','Phone','Email',\
                     'Date_Of_Birth','Hobbies','Languages','Skills',\
                     'Education','Experience','Previous_Job_Title'])
-print(df.head())
+#print(df.head())
 
 # let us remove stop words first
 stop_words = stopwords.words('english')
@@ -32,7 +33,7 @@ for i in range(1,21):
 
     # remove stopwords, bullets, punctuations and lowercase the tokenized lines
     lines_noiseless = extract_lines_without_noise(lines_tokenized)
-    print(lines_noiseless)
+    #print(lines_noiseless)
 
     lang, dob, experience, address, education, hobbies =  extract_few(lines_noiseless)           
     print(lang, dob, experience, address, education, hobbies)
@@ -66,8 +67,11 @@ for i in range(1,21):
     # populating experience
     df.at[i-1, 'Experience']  = str(experience) 
 
-    # populating languages
-    df.at[i-1, 'Skills']  = str(extract_skills(pdf))
+    # populating skills
+    df.at[i-1, 'Skills']  = extract_skills(pdf)
+
+    # populating designation
+    df.at[i-1, 'Previous_Job_Title']  = extract_designation(pdf)
 
 print(df.head())
 

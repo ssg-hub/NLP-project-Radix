@@ -7,6 +7,7 @@ from nltk import WordNetLemmatizer
 from nltk.corpus import stopwords
 nltk.download('maxent_ne_chunker')
 from phone_email_extraction import extract_dob
+import itertools
 
 # convert all pages of pdf to text
 def pdf_to_text(pdf_name : str) ->  str:
@@ -201,4 +202,7 @@ def extract_few(lines_without_noise):
                 j += 1
         
     
+    lang = list(itertools.chain(*lang))
+    hobbies = list(itertools.chain(*hobbies))
+    dob = list(itertools.chain(*dob))
     return  lang, dob, experience, address, education, hobbies

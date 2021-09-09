@@ -6,7 +6,7 @@ def extract_phone_number(cv_text):
     Function to use the regex to extract phone number from text
     """
     # using regex to extract phone
-    phone_regex = re.compile(r'[\+\(]*[1-9][0-9.\-\(\)]{8,}[0-9]')
+    phone_regex = re.compile(r'[\+\(]*[1-9][0-9.\-\(\)]{8,}[0-9\)]')
 
     # matching all using regex
     phones = re.findall(phone_regex, cv_text)
@@ -28,7 +28,7 @@ def extract_phone_number(cv_text):
                 phone_numbers.append(number)
         
         # if more than one email found return as a list
-        if len(phone_numbers) > 1: return phone_numbers
+        if len(phone_numbers) > 1: return phone_numbers[:2]
         else : return phone_numbers[0]
 
     # return none if no numbers found as per regex rule
@@ -51,7 +51,7 @@ def extract_email_address(cv_text : str):
     # check if matches are found
     if emails :
         # if more than one email found return as a list
-        if len(emails) > 1: return emails
+        if len(emails) > 1: return emails[0]
         else : return emails[0]
 
     # return none if no numbers found as per regex rule

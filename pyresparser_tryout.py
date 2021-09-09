@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1IGz6iPVAu-gtbhOvNBovMYiY8vawpRnf
 """
 
-!pip install pyresparser
+#!pip install pyresparser
 
 import nltk
 nltk.download('stopwords')

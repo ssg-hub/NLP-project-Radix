@@ -1,20 +1,38 @@
+'''pip install nltk
+pip install spacy==2.3.5
+pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
+pip install pyresparser'''
+import os
+import pandas as pd
+import PyPDF2
+import en_core_web_sm
+nlp = en_core_web_sm.load()
 import nltk
-nltk.download('stopwords')
-#nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('words')
-nltk.download('maxent_ne_chunker')
+
+
 from pyresparser import ResumeParser
 
 def extract_skills(pdf):
     """
     Function to get the skills of the person
     """
+    skills = []
     everything = ResumeParser(pdf).get_extracted_data()
     skills = everything['skills']
     return skills
+    
 
+def extract_designation(pdf):
+    """
+    Function to get the skills of the person
+    """
+    designation = []
+    everything = ResumeParser(pdf).get_extracted_data()
+    designation = everything['designation']
+    if designation is not None: return designation[0]
+    else :  return designation
 
+'''
 def extract_education(tokens_with_pos):
     """
     Function to get the education of person out of given text
@@ -55,5 +73,4 @@ def extract_education(tokens_with_pos):
   
 
     return edu_institutes
-
-    
+'''    
