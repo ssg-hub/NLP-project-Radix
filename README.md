@@ -24,7 +24,7 @@ Further down the road, these data can be used to match the right resumes with jo
 [Authors](#Authors)
 
 
-## <span style="color:blue">*Description*</span>
+## <span style="color:blue"><em>Description</em></span>
 The client - Radix - wants to be able to parse free-form PDFs that they get from their own resources. From those PDFs,
 they want to extract the most important data.  
 
