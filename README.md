@@ -98,10 +98,10 @@ an undefined number of seperate resumes (PDF), that are immediately converted in
 in order to store them. These dfs contain contact information and professional background features.
 The result in the terminal looks like this:
 
-<img width = "600" src = /assets/email.png>
+<img width = "400" src = /assets/email.png>
 
 
-<img width = "600" src = /assets/hobbies.png>
+<img width = "400" src = /assets/hobbies.png>
 
 
 
