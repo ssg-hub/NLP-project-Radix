@@ -131,8 +131,8 @@ def extract_few(lines_without_noise):
             # when languages are written in the next line:
             else:
                 lang.append(remove_noise(lines_without_noise[i+1], stop_words))
-        #else : lang = 'n/a'
-            #print ('Languages:', "\n", lang, '\n')
+        # else: 
+        #     lang = 'n/a'
         
         
         if 'dob' in x or 'birth' in x:

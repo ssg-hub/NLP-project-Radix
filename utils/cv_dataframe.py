@@ -17,7 +17,7 @@ df = pd.DataFrame(columns=['Pdf','Name','Phone','Email',\
 # let us remove stop words first
 stop_words = stopwords.words('english')
 
-for i in range(1, 21):
+for i in range(101, 201):
 
     # calling the pdfs
     pdf = 'assets/pdf/'+str(i)+'.pdf'
@@ -70,4 +70,4 @@ for i in range(1, 21):
     # populating designation
     df.at[i-1, 'Previous_Job_Title']  = extract_designation(pdf)
 
-print(df.head(20))
+df.to_pickle("assets/df_file_100to200.pkl")
