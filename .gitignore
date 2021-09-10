@@ -136,3 +136,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Nonsense like .DS_store
+.DS_Store
+.code-workspace
