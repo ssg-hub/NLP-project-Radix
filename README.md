@@ -40,6 +40,10 @@ Professional details:
 The goal is to be able to arrange the resumes into classes or clusters, compare the professional details to those
 of other candidates, and most of all: link them to the right job offers.
 
+<div align = "center">
+<img width = "200" src = /assets/logo_radix.png>
+</div>
+
 ## Installation
 On this level we can be short: the only thing you can do for now with the code as a program on itself, is parsing
 a random number of application files (PDF format) and pooring the information in a dataframe (Pickle).
