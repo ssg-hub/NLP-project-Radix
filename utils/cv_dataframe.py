@@ -71,5 +71,5 @@ for i in range(1, 251):
     df.at[i-1, 'Previous_Job_Title']  = extract_designation(pdf)
 
 # df.to_pickle("assets/df_file_250pdfs.pkl")
-df["Pdf", "Name", "Phone", "Email", "Date_Of_Birth","Hobbies", "Languages"].to_pickle("assets.df_personal")
-df["Pdf", "Name", "Skills", "Education", "Experience", "Previous_Job_Title"].to_pickle("assets/df_professional")
+df["Pdf", "Name", "Phone", "Email", "Date_Of_Birth","Hobbies", "Languages"].to_pickle("assets.df_personal.pkl")
+df["Pdf", "Name", "Skills", "Education", "Experience", "Previous_Job_Title"].to_pickle("assets/df_professional.pkl")
