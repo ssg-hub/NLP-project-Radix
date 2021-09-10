@@ -25,8 +25,8 @@ Further down the road, these data can be used to match the right resumes with jo
 
 
 ## Description
-The client - Radix - wants to be able to parse free-form PDFs that they get from their own resources. From those PDFs,
-they want to extract the most important data.  
+The client - Radix - wants to be able to parse free-form PDFs that they get from their own resources.
+From those PDFs, they want to extract the most important data.  
 
 Personal details:  
 - name of the applicant
@@ -38,16 +38,17 @@ Professional details:
 - Skills and education
 - Experience and the most recent job title  
 
-The goal is to be able to arrange the resumes into classes or clusters, compare the professional details to those
-of other candidates, and most of all: link them to the right job offers.
+The goal is to be able to arrange the resumes into classes or clusters, compare the professional details
+to those of other candidates, and most of all: link them to the right job offers.
 
 <div align = "center">
 <img width = "200" src = /assets/logo_radix.png>
 </div>
 
 ## Installation
-On this level we can be short: the only thing you can do for now with the code as a program on itself, is parsing
-a random number of application files (PDF format) and pooring the information in a dataframe (Pickle).
+On this level we can be short: the only thing you can do for now with the code as a program
+on itself, is parsing a random number of application files (PDF format) and pooring the information
+in a dataframe (Pickle).
 
 To run this function, clone the repository main branch, and run the main.py file.
 ```
@@ -55,24 +56,31 @@ git clone [name_repo]
 cd [path/to/repo]
 python main.py
 ```
-Due to the restricted time available to finish this project (two weeks), we have been focussing on extracting
-the data from the resumes and putting those in dataframes (dfs). The parsing of PDFs in itself has proven to be a challenge in
-itself, so most of the time went to that. That resulted in three easily accessible dataframes (df) with the content of 250
-resumes. There is a general df, one that stores the personal details, and one specifically for the professional ones.
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;Idea
 For further development, the following steps should be rather easy to take. 
 
 To start with, parts of the program could be used in order to parse job offers and put those into a df. An application can be developed
-that allows customers to upload either their resume or a job offer, which is then added to the dataframe. That way it should be fairly
-easy to link the requirements from the job offers to the skills, experience and education of applicants. When the job vacancy has been filled
-or the applicant found a job, they can click a button to take their file out of the running for being matched.
+that allows customers to upload either their resume or a job offer, which is then added to the dataframe. 
+
+That way it should be fairly easy to link the requirements from the job offers to the skills, experience and education of applicants.
+When the job vacancy has been filled or the applicant found a job, they can click a button to take their file out of the running for being matched.
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;Used libraries
 
 
 ## Usage
+Due to the restricted time available to finish this project (two weeks), we have been focussing
+on extracting the data themselves from the resumes and putting those in dataframes (dfs).
+The parsing of PDFs in itself has proven to be a challenge in itself, so most of the time went to that.
+That resulted in three easily accessible dataframes (df) with the content of 250 resumes. There is
+a general df, one that stores the personal details, and one specifically for the professional ones.
 
+We also already developed a function that makes it possible to give a dataframe.pkl and a skill,
+education, or experience as input. The function then runs through the database and gives back the resumes
+that contain the requested skill, education or experience. It's also possible to see the content
+of the column of the matching resumes, which makes it even easier to select and handpick the ones you want
+full access to, in order to retrieve e.g. personal contact information.
 
 ## Output
 
