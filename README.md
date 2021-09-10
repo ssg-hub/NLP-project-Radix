@@ -9,4 +9,16 @@ group assignment: PDF parsing and data extraction with NLP</h3>
 </div>
 
 # NLP-project-Radix
-This is a project to extract relevant data from CVs using NLP to be further used in matching thr candidates with right job vacancies.
+Radix offered a usecase, for which we extract relevant data from CVs using NLP.
+Further down the road, these data can be used to match the right CVs with job offers.
+
+## Table of contents
+[Description](#Description)  
+[Installation](#Installation)  
+[Usage](#Usage)  
+[Output](#Output)  
+[How it works](#How-it-works)  
+[Examples](#Examples)  
+[Authors](#Authors)
+
+## Description
