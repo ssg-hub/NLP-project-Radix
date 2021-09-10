@@ -6,6 +6,7 @@ from functions import extract_lines_without_noise, extract_few
 from phone_email_extraction import extract_email_address, extract_phone_number
 from skills_extraction import extract_skills, extract_designation
 from name_API import get_name
+
 pd.set_option('display.max_columns',15)
 
 #creating an empty dataframe
@@ -22,6 +23,9 @@ for i in range(1, 251):
     # calling the pdfs
     pdf = 'assets/pdf/'+str(i)+'.pdf'
 
+    # populating names
+    df.at[i-1, 'Name'] = get_name(pdf)
+
     # converting pdf to document and text using PyMuPDF
     pages, text = pdf_to_text(pdf)
 
@@ -36,9 +40,6 @@ for i in range(1, 251):
     #print(lang, dob, experience, address, education, hobbies)
     # populating names of pdf
     df.at[i-1, 'Pdf']  = pdf 
-
-    # populating names
-    df.at[i-1, 'Name'] = get_name(pdf)
 
     # populating phone
     df.at[i-1, 'Phone']  = str(extract_phone_number(text)) 
@@ -70,7 +71,7 @@ for i in range(1, 251):
     # populating designation
     df.at[i-1, 'Previous_Job_Title']  = extract_designation(pdf)
 
-# df.to_pickle("assets/df_file_250pdfs.pkl")
+df.to_pickle("assets/df_file_250pdfs.pkl")
 df_pers = df[["Pdf", "Name", "Phone", "Email", "Date_Of_Birth","Hobbies", "Languages"]]
 df_prof = df[["Pdf", "Name", "Skills", "Education", "Experience", "Previous_Job_Title"]]
 
