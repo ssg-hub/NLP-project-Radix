@@ -105,7 +105,7 @@ language, educational level, ... you get a list of resumes back that at least *c
 You can ask for more information (i.e.: the whole content of the column in which the query was found),
 a matching score, etc. The result - in the terminal - looks like this:
 
-IMAGE!!!!
+<img width = "200" src = /assets/Image_modeling.png>
 
 ## How it works
 
