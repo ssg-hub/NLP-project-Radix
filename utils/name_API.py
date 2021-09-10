@@ -65,8 +65,8 @@ def get_name(pdf):
         givenName = pair[0]
         surName = pair[1]
 
-        if givenName.lower() not in ["curriculum", "vitae", "resume"]:
-            if surName.lower() not in ["curriculum", "vitae", "resume"]:
+        if givenName.lower() not in ["curriculum", "vitae", "resume", "name", "fullname", "names", "fullnames"]:
+            if surName.lower() not in ["curriculum", "vitae", "resume", "name", "fullname", "names", "fullnames"]:
                 try:
                     rqst = To_Json(givenName, surName)
                     name = APIReq(rqst)
@@ -80,4 +80,4 @@ def get_name(pdf):
     else:
         return ""
 
-print(get_name("/home/becode/Documents/GitHub/NLP-project-Radix/assets/pdfs/345.pdf"))
+# print(get_name("/home/becode/Documents/GitHub/NLP-project-Radix/assets/pdfs/345.pdf"))

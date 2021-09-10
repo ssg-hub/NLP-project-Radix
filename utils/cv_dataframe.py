@@ -20,7 +20,7 @@ stop_words = stopwords.words('english')
 for i in range(1, 21):
 
     # calling the pdfs
-    pdf = 'assets/'+str(i)+'.pdf'
+    pdf = 'assets/pdf/'+str(i)+'.pdf'
 
     # converting pdf to document and text using PyMuPDF
     pages, text = pdf_to_text(pdf)
@@ -70,4 +70,4 @@ for i in range(1, 21):
     # populating designation
     df.at[i-1, 'Previous_Job_Title']  = extract_designation(pdf)
 
-print(df.head())
+print(df.head(20))

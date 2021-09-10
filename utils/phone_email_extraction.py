@@ -34,9 +34,6 @@ def extract_phone_number(cv_text):
     # return none if no numbers found as per regex rule
     return None
 
-
-
-
 #function
 def extract_email_address(cv_text : str):
     """
