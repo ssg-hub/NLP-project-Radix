@@ -98,12 +98,17 @@ an undefined number of seperate resumes (PDF), that are immediately converted in
 in order to store them. These dfs contain contact information and professional background features.
 The result in the terminal looks like this:
 
-IMAGE!!!
+<img width = "600" src = /assets/email.png>
+
+
+<img width = "600" src = /assets/hobbies.png>
+
+
 
 The modeling module makes it possible to access those .pkl and with your query of one skill,
 language, educational level, ... you get a list of resumes back that at least *contain* this query.
 You can ask for more information (i.e.: the whole content of the column in which the query was found),
-a matching score, etc. The result - in the terminal - looks like this:
+a W-score and the index in the df. The result - in the terminal - looks like this:
 
 <img width = "600" src = /assets/Image_modeling.png>
 
