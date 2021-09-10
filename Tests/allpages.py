@@ -1,7 +1,9 @@
+import pandas as pd
 from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
+import json
 import io
 
 
@@ -19,16 +21,39 @@ def extract_text_from_pdf(pdf_path):
             rsrcmgr = PDFResourceManager()
             laparams = LAParams(detect_vertical = True, line_margin = 1.3, boxes_flow = -1)
             fake_file_handle = io.StringIO()
-            converter = TextConverter(rsrcmgr, fake_file_handle, codec='utf-8', laparams = laparams)
+            converter = TextConverter(rsrcmgr, fake_file_handle, laparams = laparams)
             page_interpreter = PDFPageInterpreter(rsrcmgr, converter)
             page_interpreter.process_page(page)
 
             text = fake_file_handle.getvalue()
-            print(text)
- 
+
             # close open handles
             converter.close()
-            fake_file_handle.close() 
+            fake_file_handle.close()
 
-alltext = extract_text_from_pdf("/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/456.pdf")
-print(type(alltext))
+            return text
+
+def fromSkillsPDF(bigram):
+    with open("/home/becode/Documents/GitHub/NLP-project-Radix/assets/cleaned_related_skills.json") as db:
+        data = db.readlines()
+        data = data[0].replace("}","},")
+        data = '['+data[:-1]+']'
+        data = json.loads(data)
+
+    dict_ = {}
+    for dat in data:
+        skill = dat['name']
+        related_skills = []
+        for i in range(1, 11):
+            related_skills.append(dat['related_'+str(i)])
+        dict_[skill] = related_skills
+
+    # x = pd.DataFrame.from_dict(dict_)
+
+    pat = '|'.join(" ".join(item) for item in bigram)
+
+    skills = []
+    for i in pat:
+        skills.append(dict_.findall(pat))
+    
+    return skills

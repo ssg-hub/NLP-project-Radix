@@ -10,10 +10,8 @@ import pdfminer
 
 def createPDFDoc(fpath):
     fp = open(fpath, 'rb')
-    document = ""
-    for page in PDFPage.create_pages(fp):
-        parser = PDFParser(page)
-        document += PDFDocument(parser)
+    parser = PDFParser(fp)
+    document = PDFDocument(parser)
     return document
 
 
@@ -36,11 +34,13 @@ def parse_obj(objs):
             pass
 
 
-document = createPDFDoc("/Users/paww/Documents/GitHub/NLP-project-Radix/assets/pdf/1346.pdf")
-device, interpreter = createDeviceInterpreter()
+document = createPDFDoc("/home/becode/Documents/GitHub/NLP-project-Radix/assets/pdfs/1964.pdf")
+device,interpreter = createDeviceInterpreter()
+pages = PDFPage.create_pages(document)
+for page in pages:
+    interpreter.process_page(page)
 
-interpreter.process_page(document)
 layout = device.get_result()
-print(layout)
 
-parse_obj(layout._objs)
+result = parse_obj(layout._objs)
+print(result)
