@@ -77,7 +77,8 @@ and education of applicants. When the job vacancy has been filled or the applica
 click a button to take their file out of the running for being matched.
 
 ### &nbsp;&nbsp;&nbsp;&nbsp;Used libraries
-
+For this project we made extensive use of the libraries nltk, pandas, fitz, requests, regex, spacy and
+fuzzywuzzy.
 
 ## Usage
 Due to the restricted time available to finish this project (two weeks), we have been focussing
@@ -113,6 +114,12 @@ a W-score and the index in the df. The result - in the terminal - looks like thi
 <img width = "600" src = /assets/Image_modeling.png>
 
 ## How it works
+The PDFs are dropped in a folder that is then pulle through a process in which they are parsed. The parsed
+parts are then tokenized per word or per string, depending on its purpose. The tokens are cleaned up (by use
+of libraries, lists and API), and then linked to the correct column in the dataframe.
 
+The dataframe can then be accessed with fuzzywuzzy in order to get the queries out of the requested database.
 
 ## Authors
+Shilpa Singhal - PM - dev/doc  
+Pauwel De Wilde - dev/doc
