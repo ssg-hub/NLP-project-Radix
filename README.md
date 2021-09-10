@@ -14,8 +14,8 @@ Further down the road, these data can be used to match the right CVs with job of
 
 ## Table of contents
 [Description](#Description)  
-[Installation](#Installation)
-    [Used libraries](#Used-libraries)
+[Installation](#Installation)  
+    [Used libraries](#Used-libraries)  
 [Usage](#Usage)  
 [Output](#Output)  
 [How it works](#How-it-works)  
