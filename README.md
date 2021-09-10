@@ -55,7 +55,7 @@ To run this function, clone the repository main branch, and run the main.py file
 ```
 git clone [name_repo]
 cd [path/to/repo/NLP-project-Radix/utils]
-python main.py
+python cv_dataframe.py
 ```
 
 Next to that, we also have a function ready that allows you to access one of the three 
