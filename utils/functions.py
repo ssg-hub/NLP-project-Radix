@@ -130,7 +130,10 @@ def extract_few(lines_without_noise):
                 lang.append(remove_noise(lines_without_noise[i], stop_words))
             # when languages are written in the next line:
             else:
-                lang.append(remove_noise(lines_without_noise[i+1], stop_words))
+                try:
+                    lang.append(remove_noise(lines_without_noise[i+1], stop_words))
+                except IndexError:
+                    pass
         # else: 
         #     lang = 'n/a'
         
@@ -196,8 +199,11 @@ def extract_few(lines_without_noise):
             #print(el[0],":")
             j = 1
             while j < 7:
-                place_holder = (remove_noise(lines_without_noise[i+j], stop_words) )
-                education.append(place_holder)
+                try:
+                    place_holder = (remove_noise(lines_without_noise[i+j], stop_words) )
+                    education.append(place_holder)
+                except IndexError:
+                    pass
                 j += 1
         
     
