@@ -2,7 +2,7 @@
 
 <h3>Becode AI training
 
-group assignment: API and 3D plot</h3>
+group assignment: PDF parsing and data extraction with NLP</h3>
 
 
 <img width = "200" src = /assets/BeCode_Logo.png>
