@@ -1,7 +1,4 @@
 import requests
-import sys
-# insert at 1, 0 is the script path (or '' in REPL)
-sys.path.append("/home/becode/Documents/GitHub/NLP-project-Radix/Shilpa")
 from tokens_for_name_extraction import tokensNameExtr
 
 # Dict of data to be sent to NameAPI.org:

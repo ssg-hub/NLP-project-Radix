@@ -1,12 +1,11 @@
-from pdfminer.pdfpage import PDFPage
 from functions import pdf_to_text
-import os, sys
 import pandas as pd
 from nltk.corpus import stopwords
 from functions import pdf_to_text, extract_lines_tokenized
 from functions import extract_lines_without_noise, extract_few
 from phone_email_extraction import extract_email_address, extract_phone_number
 from skills_extraction import extract_skills, extract_designation
+from name_API import get_name
 pd.set_option('display.max_columns',15)
 
 #creating an empty dataframe
@@ -18,9 +17,7 @@ df = pd.DataFrame(columns=['Pdf','Name','Phone','Email',\
 # let us remove stop words first
 stop_words = stopwords.words('english')
 
-for i in range(1,21):
-
-    
+for i in range(1, 21):
 
     # calling the pdfs
     pdf = 'assets/'+str(i)+'.pdf'
@@ -40,8 +37,8 @@ for i in range(1,21):
     # populating names of pdf
     df.at[i-1, 'Pdf']  = pdf 
 
-    # populating name
-    df.at[i-1, 'Name']  = str('') 
+    # populating names
+    df.at[i-1, 'Name'] = get_name(pdf)
 
     # populating phone
     df.at[i-1, 'Phone']  = str(extract_phone_number(text)) 
@@ -73,10 +70,4 @@ for i in range(1,21):
     # populating designation
     df.at[i-1, 'Previous_Job_Title']  = extract_designation(pdf)
 
-    # populating names
-    #df.at[i-1, 'Name'] = get_names(pdf)
-
-#print(df.head())
-
-    
-
+print(df.head())
