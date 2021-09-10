@@ -1,3 +1,8 @@
+'''
+Created on Sep 8, 2021
+
+@author: Shilpa Singhal
+'''
 from typing import List
 import nltk
 import fitz
@@ -122,17 +127,19 @@ def extract_few(lines_without_noise):
     hobbies = []
     education = []
 
+    l = len(lines_without_noise)
+
     for i,x in enumerate(lines_without_noise):
 
         
         if 'language' in x or 'languages' in x or 'mlanguages' in x:
             # in some cases it would written in same line, then:
-            if 'english' in x or 'french' in x:            
+            if 'english' in x or 'french' in x or 'dutch' in x or 'nederlands' in x:            
                 lang.append(remove_noise(lines_without_noise[i], stop_words))
             # when languages are written in the next line:
-            else:
+            elif i != l-1:
                 lang.append(remove_noise(lines_without_noise[i+1], stop_words))
-        #else : lang = 'n/a'
+       
             #print ('Languages:', "\n", lang, '\n')
         
         
@@ -143,14 +150,14 @@ def extract_few(lines_without_noise):
             if len(somedate) != 0: 
                 #print(dob) 
                 dob.append(somedate)   
-            else:
+            elif i != l-1:
                 somedate = (remove_noise(lines_without_noise[i+1], stop_words))
                 somedate = extract_dob(somedate)
                 dob.append(somedate) 
                 #print(dob)
         
                 
-        if 'experience' in x or 'past' in x:
+        if ('experience' in x or 'past' in x) and (l > i+1):
             #print("Experience:")
             #print(remove_noise(x, stop_words))
             experience.append(remove_noise(lines_without_noise[i+1], stop_words))
@@ -164,14 +171,19 @@ def extract_few(lines_without_noise):
             or 'postaladdress' in x:
             #print("Address:")
             #print(remove_noise(x, stop_words))
-            one = (' '.join(remove_noise(lines_without_noise[i+1], stop_words)))
-            '''if len(lines_without_noise) >= i+2:
-                two = (' '.join(remove_noise(lines_without_noise[i+2], stop_words)))
-            else : two = ''
-            if len(lines_without_noise) >= i+3:
-                    three = (' '.join(remove_noise(lines_without_noise[i+3], stop_words)), "\n")
-            else : three = '''''
-            address.append((one))
+            three = ''
+            two = ''
+            one = ''
+            if l > i+1:
+                one = (' '.join(remove_noise(lines_without_noise[i+1], stop_words)))
+                if l > i+2:
+                    two = (' '.join(remove_noise(lines_without_noise[i+2], stop_words)))
+                    if l > i+3:
+                        three = (' '.join(remove_noise(lines_without_noise[i+3], stop_words)), "\n")
+                    
+            
+            
+            address.extend((one, two, three))
             #print(one, "\n", two, "\n", three)
         
 
@@ -180,7 +192,7 @@ def extract_few(lines_without_noise):
                         'extra', 'sports','curricular','activities']
         hl = list(set(hobby_list).intersection(x))
         #if set(x) in hobby_list
-        if len(hl) != 0:
+        if (len(hl) != 0) and (l > i+1):
             #print(hl[0],":")            
             #print(hl, i, i+1)
             #print(remove_noise(x, stop_words))
@@ -196,7 +208,7 @@ def extract_few(lines_without_noise):
         if len(el) != 0:
             #print(el[0],":")
             j = 1
-            while j < 7:
+            while (j < 5) and (l > i+j):
                 place_holder = (remove_noise(lines_without_noise[i+j], stop_words) )
                 education.append(place_holder)
                 j += 1

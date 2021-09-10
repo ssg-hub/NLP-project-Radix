@@ -1,3 +1,8 @@
+'''
+Created on Sep 8, 2021
+
+@author: Shilpa Singhal
+'''
 from functions import preprocess, named_entities, pdf_to_text
 import flair
 from flair.data import Sentence

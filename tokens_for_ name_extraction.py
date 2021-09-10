@@ -19,4 +19,4 @@ for token, tag in a:
 #choosing only first tokens to extract name
 #as in >95% times it should be there.
 tags_for_name = nnp_list[:8] 
-print(tags_for_name)
+#print(tags_for_name)
