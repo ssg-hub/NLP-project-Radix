@@ -139,4 +139,4 @@ cython_debug/
 
 # Nonsense like .DS_store
 .DS_Store
-*.code-workspace
+*.code-workspace.DS_Store
