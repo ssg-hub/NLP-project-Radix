@@ -155,7 +155,10 @@ def extract_few(lines_without_noise):
         if 'experience' in x or 'past' in x:
             #print("Experience:")
             #print(remove_noise(x, stop_words))
-            experience.append(remove_noise(lines_without_noise[i+1], stop_words))
+            try:
+                experience.append(remove_noise(lines_without_noise[i+1], stop_words))
+            except IndexError:
+                pass
             #print(experience, '\n')
         
         #token = re.sub(r'[^\x00-\x7F]+(\s)*', '', token) 
