@@ -24,6 +24,19 @@ Further down the road, these data can be used to match the right CVs with job of
 [Authors](#Authors)
 
 ## Description
+The client - Radix - wants to be able to parse free-form PDFs that they get from their own resources. From those PDFs,
+they want to extract the most important data.  
+
+Personal details:  
+- name of the applicant
+- phone number and e-mailaddress
+- date of birth
+- languages spoken
+  
+Professional details:  
+- Skills and education
+- Experience and the most recent job title  
+
 
 
 ## Installation
