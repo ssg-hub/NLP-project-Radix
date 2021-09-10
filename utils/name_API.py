@@ -34,7 +34,7 @@ def APIReq(rqst: dict):
     # - pass the JSON to request body
     # - set header's 'Content-Type' to 'application/json' instead of
     #   default 'multipart/form-data'
-    url = ("http://api.nameapi.org/rest/v5.3/matcher/personmatcher?apiKey=4c812bf642f08aac955574296fd2d2d6-user1")
+    url = ("http://api.nameapi.org/rest/v5.3/matcher/personmatcher?apiKey=ASKONEYOURSELF")
     resp = requests.post(url, json = rqst)
     resp.raise_for_status()
     # Decode JSON response into a Python dict:
