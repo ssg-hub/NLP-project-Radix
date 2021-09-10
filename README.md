@@ -5,7 +5,7 @@
 group assignment: API and 3D plot</h3>
 
 
-<img width = "200" src = /Assets/BeCode_Logo.png>
+<img width = "200" src = /assets/BeCode_Logo.png>
 </div>
 
 # NLP-project-Radix
