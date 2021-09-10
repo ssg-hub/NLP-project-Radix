@@ -1,6 +1,10 @@
+'''
+Created on Sep 4, 2021
+@author: Shilpa Singhal
+'''
 import re
 
-# function 
+# function 1
 def extract_phone_number(cv_text):
     """
     Function to use the regex to extract phone number from text
@@ -34,7 +38,7 @@ def extract_phone_number(cv_text):
     # return none if no numbers found as per regex rule
     return None
 
-#function
+#function 2
 def extract_email_address(cv_text : str):
     """
     Function to extract emails using regex
@@ -54,20 +58,8 @@ def extract_email_address(cv_text : str):
     # return none if no numbers found as per regex rule
     return None
 
-def extract_email_address_2(doc):
-    """
-    Function to retrive emails using inbuilt function from spacy
-    """
-    email_list = []
 
-    for token in doc:
-        if token.like_email == True: 
-            email_list.append(token)
-    x = list(set(email_list))
-
-    return x
-    #not working
-
+# function 3
 def extract_dob(a_list):
     """
     Function to extract date of birth from given text using regex
@@ -81,9 +73,3 @@ def extract_dob(a_list):
     for item in a_list: 
         matches = re.findall(pattern, item)
     return matches
-
-def remove_utfs(a_list):
-    """
-    Function to remove bullet points etc.
-    """
-    pattern = r''

@@ -1,3 +1,8 @@
+'''
+Created on Sep 8, 2021
+@author: Shilpa Singhal
+@additions: Pauwel De Wilde
+'''
 from functions import pdf_to_text
 import pandas as pd
 from nltk.corpus import stopwords
@@ -13,11 +18,10 @@ pd.set_option('display.max_columns',15)
 df = pd.DataFrame(columns=['Pdf','Name','Phone','Email',\
                     'Date_Of_Birth','Hobbies','Languages','Skills',\
                     'Education','Experience','Previous_Job_Title'])
-#print(df.head())
 
-# let us remove stop words first
-stop_words = stopwords.words('english')
 
+# each cv is a row of the dataframe
+# populating columns for each of the cv
 for i in range(1, 251):
 
     # calling the pdfs
@@ -34,10 +38,12 @@ for i in range(1, 251):
 
     # remove stopwords, bullets, punctuations and lowercase the tokenized lines
     lines_noiseless = extract_lines_without_noise(lines_tokenized)
-    #print(lines_noiseless)
-
+    
+    # getting these fields with a function from cleaned lines
+    # language, date of birth, experience, address, education, hobbies
     lang, dob, experience, address, education, hobbies =  extract_few(lines_noiseless)           
-    #print(lang, dob, experience, address, education, hobbies)
+    
+    # Now filling the details in data the empty daataframe we created
     # populating names of pdf
     df.at[i-1, 'Pdf']  = pdf 
 
@@ -71,6 +77,7 @@ for i in range(1, 251):
     # populating designation
     df.at[i-1, 'Previous_Job_Title']  = extract_designation(pdf)
 
+# save everything into pickle dataframes
 df.to_pickle("assets/df_file_250pdfs.pkl")
 df_pers = df[["Pdf", "Name", "Phone", "Email", "Date_Of_Birth","Hobbies", "Languages"]]
 df_prof = df[["Pdf", "Name", "Skills", "Education", "Experience", "Previous_Job_Title"]]

@@ -1,12 +1,16 @@
+'''
+Created on Sep 8, 2021
+@author: Shilpa Singhal
+'''
+
 '''pip install nltk
 pip install spacy==2.3.5
 pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
 pip install pyresparser'''
-import nltk
 import en_core_web_sm
 nlp = en_core_web_sm.load()
 
-from pyresparser import ResumeParser #pyreparser is a library
+from pyresparser import ResumeParser #pyresparser is a library
 
 def extract_skills(pdf):
     """
@@ -28,46 +32,3 @@ def extract_designation(pdf):
     designation = everything['designation']
     if designation is not None: return designation[0]
     else :  return designation
-
-'''
-def extract_education(tokens_with_pos):
-    """
-    Function to get the education of person out of given text
-    """
-    education_words = [
-    #'school',
-    #'university',
-    'certificate',
-    #'study',
-    'diploma',
-    #'hsc',
-    #'ssc',
-    #'college',
-    #'higher',
-    #'institute',
-    #'studies',
-    #'education',
-   # 'high',
-   # 'master',
-    #'bachelor',
-    #'academy',
-    #'polytechnic',
-    #'degree',
-    'masters',
-    'bachelors',
-    'p.h.d',
-    'b.e',
-    'b.e.',
-    'm.e.'
-    'engineering'
-    ]
-
-    edu_institutes = []
-    for each, tag in tokens_with_pos:
-        if each.lower() in education_words:
-            edu_institutes.append(each)
-
-  
-
-    return edu_institutes
-'''    

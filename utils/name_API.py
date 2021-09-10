@@ -1,3 +1,6 @@
+'''
+@author: Pauwel De Wilde
+'''
 import requests
 from tokens_for_name_extraction import tokensNameExtr
 
@@ -31,7 +34,7 @@ def APIReq(rqst: dict):
     # - pass the JSON to request body
     # - set header's 'Content-Type' to 'application/json' instead of
     #   default 'multipart/form-data'
-    url = ("http://rc50-api.nameapi.org/rest/v5.0/parser/personnameparser?apiKey=4c812bf642f08aac955574296fd2d2d6-user1")
+    url = ("http://api.nameapi.org/rest/v5.3/matcher/personmatcher?apiKey=4c812bf642f08aac955574296fd2d2d6-user1")
     resp = requests.post(url, json = rqst)
     resp.raise_for_status()
     # Decode JSON response into a Python dict:
@@ -50,7 +53,6 @@ def get_name(pdf):
     realName = []
     # get first few tokens from pdf
     potNames = tokensNameExtr(pdf)
-    # print("potential names: ", potNames)
 
     # zip the tuples per pair as follows: (1, 2), (2, 3), (3, 4), etc.
     for item in potNames:
@@ -60,24 +62,18 @@ def get_name(pdf):
     # assign the different parts to potential given name and surname
     # run the suggestions through the API
     perPair = list(perPair)
-    # print("per pair: ", perPair)
     for index, pair in enumerate(perPair):
         givenName = pair[0]
         surName = pair[1]
-
-        if givenName.lower() not in ["curriculum", "vitae", "resume", "name", "fullname", "names", "fullnames"]:
-            if surName.lower() not in ["curriculum", "vitae", "resume", "name", "fullname", "names", "fullnames"]:
-                try:
-                    rqst = To_Json(givenName, surName)
-                    name = APIReq(rqst)
-                    # print("names: ", name)
-                    realName.append(name)
-                except:
-                    pass
+        if givenName.lower() and surName.lower() not in ["curriculum", "vitae", "resume", "name", "fullname", "names", "fullnames"]:
+            try:
+                rqst = To_Json(givenName, surName)
+                name = APIReq(rqst)
+                realName.append(name)
+            except:
+                pass
         
     if len(realName) > 0:
         return realName[0]
     else:
         return ""
-
-# print(get_name("/home/becode/Documents/GitHub/NLP-project-Radix/assets/pdfs/345.pdf"))
