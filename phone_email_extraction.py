@@ -5,7 +5,7 @@ Created on Sep 4, 2021
 '''
 import re
 
-# function 
+# function 1
 def extract_phone_number(cv_text):
     """
     Function to use the regex to extract phone number from text
@@ -40,9 +40,7 @@ def extract_phone_number(cv_text):
     return None
 
 
-
-
-#function
+# function 2
 def extract_email_address(cv_text : str):
     """
     Function to extract emails using regex
@@ -62,6 +60,7 @@ def extract_email_address(cv_text : str):
     # return none if no numbers found as per regex rule
     return None
 
+# function 3 - not using in final script
 def extract_email_address_2(doc):
     """
     Function to retrive emails using inbuilt function from spacy
@@ -72,26 +71,20 @@ def extract_email_address_2(doc):
         if token.like_email == True: 
             email_list.append(token)
     x = list(set(email_list))
-
     return x
-    #not working
-
+    
+# function 4
 def extract_dob(a_list):
     """
     Function to extract date of birth from given text using regex
     """
     # pattern for  mm/dd/yy, mm/dd/yyyy, dd/mm/yy, and dd/mm/yyyy, allowing leading zeros to be omitted
     # and not acconting for Feb 30th or 31st
-    pattern = r'^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d'
-    pattern = r'(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})'
-    pattern = r'^[1-2][0-9]|[0][1-9]|[3][01][- /.]([0]?[1-9]|[1][012])[- /.]((19|20)\d\d)$'
+    #pattern = r'^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d'
+    #pattern = r'(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})'
+    #pattern = r'^[1-2][0-9]|[0][1-9]|[3][01][- /.]([0]?[1-9]|[1][012])[- /.]((19|20)\d\d)$'
     pattern = r'^[0-3]?[0-9][- /.][0-3]?[0-9][- /.](?:[0-9]{2})?[0-9]{2}$'
     for item in a_list: 
         matches = re.findall(pattern, item)
     return matches
-
-def remove_utfs(a_list):
-    """
-    Function to remove bullet points etc.
-    """
-    pattern = r''
+    

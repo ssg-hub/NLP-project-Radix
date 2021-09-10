@@ -3,3 +3,5 @@ genism_tryout.py
 flair_tryout.py
 pyresparser_tryout.py
 modeling_tryout.py
+cv_dataframe_tryout.py
+functions_tryout.py

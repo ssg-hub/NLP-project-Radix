@@ -6,6 +6,7 @@ Created on Sep 8, 2021
 import pandas as pd
 import gradio as gr
 
+
 def start(name):
     a = "Hello Team Radix and " + name +"! "
     b = "Welcome to the CV Mining and Matching Project "
@@ -16,7 +17,7 @@ face = gr.Interface(fn=start, inputs="text", outputs='textbox')
 face.launch(share = True)
 
 #########################################
-def frame(saved_df ):
+'''def frame(saved_df ):
     df_pkl = pd.read_pickle(saved_df)
     return df_pkl
 
@@ -28,4 +29,4 @@ iface = gr.Interface(frame,
   #description="Enter gender as 'M', 'F', or 'O' for other."
 )
 
-iface.test_launch()
+iface.test_launch()'''

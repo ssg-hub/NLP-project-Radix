@@ -14,15 +14,16 @@ import en_core_web_sm
 nlp = en_core_web_sm.load()
 import nltk
 
-
 from pyresparser import ResumeParser #pyreparser is a library
 
 def extract_skills(pdf):
     """
     Function to get the skills of the person
     """
-    skills = []
+    skills = [] #to populate the results
+    # gets everything from a person's cv 
     everything = ResumeParser(pdf).get_extracted_data()
+    # we are using skills only here
     skills = everything['skills']
     skills = ' '.join(skills)
     return skills
@@ -30,10 +31,12 @@ def extract_skills(pdf):
 
 def extract_designation(pdf):
     """
-    Function to get the skills of the person
+    Function to get the designation/previous job title of the person
     """
-    designation = []
+    designation = [] #to populate the results
+    # gets everything from a person's cv
     everything = ResumeParser(pdf).get_extracted_data()
+    # we are using only designation here
     designation = everything['designation']
     if designation is not None: return designation[0]
     else :  return designation
