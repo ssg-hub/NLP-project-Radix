@@ -74,5 +74,5 @@ for i in range(1, 251):
 df_pers = df[["Pdf", "Name", "Phone", "Email", "Date_Of_Birth","Hobbies", "Languages"]]
 df_prof = df[["Pdf", "Name", "Skills", "Education", "Experience", "Previous_Job_Title"]]
 
-df_pers.to_pickle("assets.df_personal.pkl")
+df_pers.to_pickle("assets/df_personal.pkl")
 df_prof.to_pickle("assets/df_professional.pkl")
