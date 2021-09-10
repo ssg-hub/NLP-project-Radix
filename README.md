@@ -24,7 +24,7 @@ Further down the road, these data can be used to match the right resumes with jo
 [Authors](#Authors)
 
 
-## <span style="color:blue"><em>Description</em></span>
+## Description
 The client - Radix - wants to be able to parse free-form PDFs that they get from their own resources. From those PDFs,
 they want to extract the most important data.  
 
@@ -60,7 +60,7 @@ the data from the resumes and putting those in dataframes (dfs). The parsing of 
 itself, so most of the time went to that. That resulted in three easily accessible dataframes (df) with the content of 250
 resumes. There is a general df, one that stores the personal details, and one specifically for the professional ones.
 
-### Idea
+### &nbsp;&nbsp;&nbsp;&nbsp;Idea
 For further development, the following steps should be rather easy to take. 
 
 To start with, parts of the program could be used in order to parse job offers and put those into a df. An application can be developed
@@ -68,7 +68,7 @@ that allows customers to upload either their resume or a job offer, which is the
 easy to link the requirements from the job offers to the skills, experience and education of applicants. When the job vacancy has been filled
 or the applicant found a job, they can click a button to take their file out of the running for being matched.
 
-### Used libraries
+### &nbsp;&nbsp;&nbsp;&nbsp;Used libraries
 
 
 ## Usage
